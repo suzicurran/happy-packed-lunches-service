@@ -1,13 +1,14 @@
 {
   "name": "happy-packed-lunches-service",
   "version": "1.0.0",
-  "description": "",
+  "description": "a lunch tracking app",
   "engines": {
     "node": "12.2.0"
   },
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "dev": "nodemon --exec \"heroku local\" --signal SIGTERM",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

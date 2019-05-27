@@ -1,7 +1,7 @@
 const Streak = require("../model/streak_model.js");
 
 exports.showIndex = (req, res, next) => {
-  res.send("hi from <del>steak</del> streak controller");
+  res.send("happy packed lunches");
 };
 
 exports.create = (req, res, next) => {

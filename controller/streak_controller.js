@@ -1,16 +1,41 @@
-const Streak = require('../model/streak_model.js');
+const Streak = require("../model/streak_model.js");
 
 exports.showIndex = (req, res, next) => {
-    res.send('hi from <del>steak</del> streak controller');
-}
+  res.send("hi from <del>steak</del> streak controller");
+};
 
 exports.create = (req, res, next) => {
-    const streak = new Streak({
-         user: req.body.user
-    });
-    streak.save().then(() => {
-         res.send('streak added successfully');
-    }).catch(err => {
-         res.status(400).send(err);
+  const user = req.body.user;
+  const streak = new Streak({
+    user
+  });
+  streak
+    .save()
+    .then(() => {
+      res.send("streak added successfully");
     })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+};
+
+exports.increment = (req, res, next) => {
+  const user = req.body.user;
+  Streak.findOne({ user })
+    .then(streak => {
+      streak.streakCount = streak.streakCount + 1;
+      streak
+        .save()
+        .then(() => {
+          res.send(
+            `Streak updated to ${streak.streakCount} for ${streak.user}`
+          );
+        })
+        .catch(err => {
+          res.status(500).send(err);
+        });
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
 };

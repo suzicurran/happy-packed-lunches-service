@@ -19,4 +19,8 @@ streakSchema.methods.incrementStreak = function incrementStreak() {
   this.streakCount = this.streakCount + 1;
 }
 
+streakSchema.methods.resetStreak = function resetStreak() {
+  this.streakCount = 0;
+}
+
 module.exports = mongoose.model('streak', streakSchema);

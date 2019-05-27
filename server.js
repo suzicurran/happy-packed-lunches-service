@@ -10,6 +10,6 @@ debugger;
 const connectionString = `mongodb+srv://admin:${process.env.MONGO_ADMIN_PW}@happy-packed-lunches-eg8oh.mongodb.net/test?retryWrites=true`;
 mongoose.connect(connectionString,{useNewUrlParser: true})
   .then(()=>{
-    server.listen(3000);
+    server.listen(process.env.PORT || 3000);
     console.log('database connected!');})
   .catch(err => console.log(err));

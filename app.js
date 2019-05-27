@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const apiroutes = require('./routes/api_route.js');
 const { MONGO_ADMIN_PW } = require('./secrets');
 const app = express();
 
-app.get('/', (req, res, next)=>{
-    res.send('running node api');
-});
+app.use(express.json()) //sets content-type to json
+app.use('/', apiroutes);
 
 const connectionString = `mongodb+srv://admin:${MONGO_ADMIN_PW}@happy-packed-lunches-eg8oh.mongodb.net/test?retryWrites=true`;
 mongoose.connect(connectionString,{useNewUrlParser: true})

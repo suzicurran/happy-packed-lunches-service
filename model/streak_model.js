@@ -14,4 +14,9 @@ const streakSchema = new Schema({
         default: Date.now
       }
 });
+
+streakSchema.methods.incrementStreak = function incrementStreak() {
+  this.streakCount = this.streakCount + 1;
+}
+
 module.exports = mongoose.model('streak', streakSchema);

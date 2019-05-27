@@ -23,7 +23,7 @@ exports.increment = (req, res, next) => {
   const user = req.body.user;
   Streak.findOne({ user })
     .then(streak => {
-      streak.streakCount = streak.streakCount + 1;
+      streak.incrementStreak();
       streak
         .save()
         .then(() => {

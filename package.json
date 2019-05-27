@@ -2,12 +2,16 @@
   "name": "happy-packed-lunches-service",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "12.2.0"
+  },
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "sucurran",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",

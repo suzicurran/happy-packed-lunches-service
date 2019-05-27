@@ -1,17 +1,17 @@
-const Streak = require("../model/streak_model.js");
+const User = require("../model/user_model.js");
 
 const retrieveUserByName = username => {
-  return Streak.findOne({ user: username });
+  return User.findOne({ username });
 };
 
-exports.showIndex = (req, res, next) => {
+exports.showIndex = (req, res, next) => {  
   res.send("happy packed lunches are go");
 };
 
-exports.view = (req, res, next) => {
-  retrieveUserByName(req.body.user)
-    .then(streak => {
-      res.send({ streak: streak.streakCount });
+exports.streak = (req, res, next) => {
+  retrieveUserByName(req.body.username)
+    .then(user => {
+      res.send({ streak: user.streak });
     })
     .catch(err => {
       res.status(500).send(err);
@@ -19,14 +19,14 @@ exports.view = (req, res, next) => {
 };
 
 exports.create = (req, res, next) => {
-  const user = retrieveUserByName(req.body.user);
-  const streak = new Streak({
-    user
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password
   });
-  streak
+  user
     .save()
     .then(() => {
-      res.send("streak added successfully");
+      res.send("User added successfully");
     })
     .catch(err => {
       res.status(500).send(err);
@@ -34,14 +34,14 @@ exports.create = (req, res, next) => {
 };
 
 exports.increment = (req, res, next) => {
-  retrieveUserByName(req.body.user)
-    .then(streak => {
-      streak.incrementStreak();
-      streak
+  retrieveUserByName(req.body.username)
+    .then(user => {
+      user.incrementStreak();
+      user
         .save()
         .then(() => {
           res.send(
-            `Streak updated to ${streak.streakCount} for ${streak.user}`
+            `Streak updated to ${user.streak} for ${user.username}`
           );
         })
         .catch(err => {
@@ -54,13 +54,13 @@ exports.increment = (req, res, next) => {
 };
 
 exports.reset = (req, res, next) => {
-  retrieveUserByName(req.body.user)
-    .then(streak => {
-      streak.resetStreak();
-      streak
+  retrieveUserByName(req.body.username)
+    .then(user => {
+      user.resetStreak();
+      user
         .save()
         .then(() => {
-          res.send(`Streak reset to ${streak.streakCount} for ${streak.user}`);
+          res.send(`Streak reset to ${user.streak} for ${user.username}`);
         })
         .catch(err => {
           res.status(500).send(err);

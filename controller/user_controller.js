@@ -1,21 +1,11 @@
 const User = require("../model/user_model.js");
 
-const retrieveUserByName = username => {
-  return User.findOne({ username });
-};
-
-exports.showIndex = (req, res, next) => {  
+exports.showIndex = (req, res, next) => {
   res.send("happy packed lunches are go");
 };
 
 exports.streak = (req, res, next) => {
-  retrieveUserByName(req.body.username)
-    .then(user => {
-      res.send({ streak: user.streak });
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+  res.send(`Your streak: ${req.user.streak}`);
 };
 
 exports.create = (req, res, next) => {
@@ -34,19 +24,11 @@ exports.create = (req, res, next) => {
 };
 
 exports.increment = (req, res, next) => {
-  retrieveUserByName(req.body.username)
-    .then(user => {
-      user.incrementStreak();
-      user
-        .save()
-        .then(() => {
-          res.send(
-            `Streak updated to ${user.streak} for ${user.username}`
-          );
-        })
-        .catch(err => {
-          res.status(500).send(err);
-        });
+  req.user.incrementStreak();
+  req.user
+    .save()
+    .then(() => {
+      res.send(`Streak updated to ${req.user.streak} for ${req.user.username}`);
     })
     .catch(err => {
       res.status(500).send(err);
@@ -54,17 +36,11 @@ exports.increment = (req, res, next) => {
 };
 
 exports.reset = (req, res, next) => {
-  retrieveUserByName(req.body.username)
-    .then(user => {
-      user.resetStreak();
-      user
-        .save()
-        .then(() => {
-          res.send(`Streak reset to ${user.streak} for ${user.username}`);
-        })
-        .catch(err => {
-          res.status(500).send(err);
-        });
+  req.user.resetStreak();
+  req.user
+    .save()
+    .then(() => {
+      res.send(`Streak reset to ${req.user.streak} for ${req.user.username}`);
     })
     .catch(err => {
       res.status(500).send(err);

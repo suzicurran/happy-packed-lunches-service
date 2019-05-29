@@ -21,12 +21,22 @@ router.post(
   "/",
   passport.authenticate("local", { failureRedirect: "/error" }),
   function(req, res) {
-    res.redirect("/success?username=" + req.user.id);
+    res.redirect("/success");
   }
 );
 
+const isLoggedIn = (req, res, next) => {
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+    console.log("not authenticated");
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
+
 // Streak (soon: User?)
-router.get("/streak", userController.streak);
+router.get("/streak", isLoggedIn, userController.streak);
 router.post("/create", userController.create);
 router.patch("/increment", userController.increment);
 router.patch("/reset", userController.reset);

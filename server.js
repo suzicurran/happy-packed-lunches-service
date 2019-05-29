@@ -18,8 +18,7 @@ server.use(passport.session());
 server.use("/", apiroutes);
 
 const connectionString = `mongodb+srv://admin:${
-  //process.env.MONGO_ADMIN_PW
-  "tochiginoichigo"
+  process.env.MONGO_ADMIN_PW
 }@happy-packed-lunches-eg8oh.mongodb.net/test?retryWrites=true`;
 mongoose
   .connect(connectionString, { useNewUrlParser: true })

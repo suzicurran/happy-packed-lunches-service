@@ -1,11 +1,12 @@
 const User = require("../model/user_model.js");
 
-exports.showIndex = (req, res, next) => {
-  res.send("happy packed lunches are go");
-};
+// exports.showIndex = (req, res, next) => {
+//   res.send("happy packed lunches are go");
+// };
 
 exports.streak = (req, res, next) => {
-  res.send(`Your streak: ${req.user.streak}`);
+  // res.send(`Your streak: ${req.user.streak}`);
+  res.json({streak: req.user.streak});
 };
 
 exports.create = (req, res, next) => {

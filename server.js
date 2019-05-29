@@ -17,14 +17,18 @@ server.use(passport.initialize());
 server.use(passport.session());
 server.use("/", apiroutes);
 
+// Serve static files from the React app
+// server.use(express.static(path.join(__dirname, 'client/build')));
+
 const connectionString = `mongodb+srv://admin:${
   process.env.MONGO_ADMIN_PW
 }@happy-packed-lunches-eg8oh.mongodb.net/test?retryWrites=true`;
 mongoose
   .connect(connectionString, { useNewUrlParser: true })
   .then(() => {
-    server.listen(process.env.PORT);
-    console.log("database connected!");
+    const port = process.env.PORT || 3001;
+    server.listen(port);
+    console.log("database connected!\nServer started on port "+port+"\nhttp://localhost:"+port);
   })
   .catch(err => console.log(err));
 

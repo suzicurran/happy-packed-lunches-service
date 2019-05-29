@@ -6,6 +6,7 @@ const apiroutes = require("./routes/api_route.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./model/user_model.js");
+const path = require("path");
 const server = express();
 
 server.use(express.json()); //sets content-type to json
@@ -17,8 +18,8 @@ server.use(passport.initialize());
 server.use(passport.session());
 server.use("/", apiroutes);
 
-// Serve static files from the React app
-// server.use(express.static(path.join(__dirname, 'client/build')));
+// Serve static files from the React app (currently only "index.html")
+server.use(express.static(path.join(__dirname, 'client/build')));
 
 const connectionString = `mongodb+srv://admin:${
   process.env.MONGO_ADMIN_PW

@@ -13,8 +13,8 @@ const isLoggedIn = (req, res, next) => {
 };
 
 // This is bad and wrong, once we add a react login page we can serve all pages from the build
-router.get("/", isLoggedIn, (req, res) =>
-  res.sendFile(path.join(__dirname + "/client/build/index.html"))
+router.get("/", (req, res) =>
+  res.redirect("/index.html")
 );
 
 // temporary login for test purposes

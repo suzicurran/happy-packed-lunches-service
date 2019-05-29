@@ -10,7 +10,8 @@
     "start": "node server.js",
     "debug": "node --inspect server.js",
     "dev": "nodemon --exec \"heroku local\" --signal SIGTERM",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "sucurran",
@@ -27,5 +28,6 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "nodemon": "^1.19.1"
-  }
+  },
+  
 }
